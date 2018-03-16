@@ -1,3 +1,5 @@
+package PyramidLayers;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,8 @@ public class Layers {
     private final String EMPTY_BLOCK = " ";
     private final String FILLER_BLOCK = "_";
 
-    public void add(Layer layer) {
+    public void add(String inputLayer) {
+        Layer layer = LayerFactory.getLayer(inputLayer);
         layers.add(layer);
         checkCollapse();
     }

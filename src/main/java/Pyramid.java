@@ -1,9 +1,10 @@
+import PyramidLayers.Layers;
+
 public class Pyramid {
 
     private Layers layers = new Layers();
 
-    public void addLayer(String s) {
-        Layer layer = LayerFactory.getLayer(s);
+    public void addLayer(String layer) {
         layers.add(layer);
     }
 

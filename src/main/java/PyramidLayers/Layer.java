@@ -1,3 +1,5 @@
+package PyramidLayers;
+
 public abstract class Layer {
 
     protected final int length;

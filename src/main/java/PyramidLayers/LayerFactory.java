@@ -1,3 +1,5 @@
+package PyramidLayers;
+
 public class LayerFactory {
 
     private static final int SLAVES_PER_BLOCk = 50;

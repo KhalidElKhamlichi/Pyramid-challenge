@@ -1,3 +1,5 @@
+package PyramidLayers;
+
 public class LowQualityLayer extends Layer {
 
     private final String block = "V";
