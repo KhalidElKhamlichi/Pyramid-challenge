@@ -32,10 +32,12 @@ public class Layers {
 
         for(int i=layers.size()-1; i>=0; i--) {
 
-            String wrappedLayer = wrapLayerWithFillerBlock(layers.get(i), layers.get(i).getRepresentation());
-            wrappedLayer = wrapLayerWithEmptyBlocks(layers.get(i), wrappedLayer);
+            String initialLayerRepresentation = layers.get(i).getRepresentation();
 
-            result.append(wrappedLayer);
+            String wrappedLayerRepresentation = wrapLayerWithFillerBlocks(layers.get(i), initialLayerRepresentation);
+            wrappedLayerRepresentation = wrapLayerWithEmptyBlocks(layers.get(i), wrappedLayerRepresentation);
+
+            result.append(wrappedLayerRepresentation);
 
             if(i != 0)
                 result.append("\n");
@@ -69,7 +71,7 @@ public class Layers {
         return result.toString();
     }
 
-    private String wrapLayerWithFillerBlock(Layer layer, String representation) {
+    private String wrapLayerWithFillerBlocks(Layer layer, String representation) {
         StringBuilder result = new StringBuilder();
 
         int previousLayerIndex = layers.indexOf(layer) - 1;
