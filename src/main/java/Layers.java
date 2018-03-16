@@ -5,13 +5,16 @@ public class Layers {
 
     private List<Layer> layers = new ArrayList<Layer>();
 
+    private final String EMPTY_BLOCK = " ";
+    private final String FILLER_BLOCK = "_";
+
     public void add(Layer layer) {
         layers.add(layer);
         checkCollapse();
     }
 
     private void checkCollapse() {
-        if(layers.size() < 2)
+        if(layers.size() == 1)
             return;
 
         Layer recentLayer = layers.get(layers.size()-1);
@@ -25,44 +28,67 @@ public class Layers {
         StringBuilder result = new StringBuilder();
 
         for(int i=layers.size()-1; i>=0; i--) {
-            result.append(wrapLayer(layers.get(i)));
+
+            String wrappedLayer = wrapLayerWithFillerBlock(layers.get(i), layers.get(i).getRepresentation());
+            wrappedLayer = wrapLayerWithEmptyBlocks(layers.get(i), wrappedLayer);
+
+            result.append(wrappedLayer);
+
             if(i != 0)
                 result.append("\n");
         }
         return result.toString();
     }
 
-    private String wrapLayer(Layer layer) {
+    private String wrapLayerWithEmptyBlocks(Layer layer, String representation) {
         StringBuilder result = new StringBuilder();
 
         int previousLayerIndex = layers.indexOf(layer) - 1;
 
         if(previousLayerIndex < 0) {
-            return layer.getRepresentation();
+            return representation;
+        }
+
+        Layer previousLayer = layers.get(previousLayerIndex);
+
+        int numberOfEmptyBlocks = layers.get(0).getLength() - previousLayer.getLength();
+
+        for (int i=0; i<numberOfEmptyBlocks/2; i++) {
+            result.append(EMPTY_BLOCK);
+        }
+
+        result.append(representation);
+
+        for (int i=0; i<numberOfEmptyBlocks/2; i++) {
+            result.append(EMPTY_BLOCK);
+        }
+
+        return result.toString();
+    }
+
+    private String wrapLayerWithFillerBlock(Layer layer, String representation) {
+        StringBuilder result = new StringBuilder();
+
+        int previousLayerIndex = layers.indexOf(layer) - 1;
+
+        if(previousLayerIndex < 0) {
+            return representation;
         }
 
         Layer previousLayer = layers.get(previousLayerIndex);
 
         int sizeDiff = previousLayer.getLength() - layer.getLength();
-        int numberOfEmptyBlocks = layers.get(0).getLength() - previousLayer.getLength();
-
-        for (int i=0; i<numberOfEmptyBlocks/2; i++) {
-            result.append(" ");
-        }
 
         for (int i=0; i<sizeDiff/2; i++) {
-            result.append("_");
+            result.append(FILLER_BLOCK);
         }
 
-        result.append(layer.getRepresentation());
+        result.append(representation);
 
         for (int i=0; i<sizeDiff/2; i++) {
-            result.append("_");
+            result.append(FILLER_BLOCK);
         }
 
-        for (int i=0; i<numberOfEmptyBlocks/2; i++) {
-            result.append(" ");
-        }
 
         return result.toString();
     }

@@ -1,20 +1,10 @@
-public class HighQualityLayer implements Layer {
+public class HighQualityLayer extends Layer {
 
-    private final int length;
     private final String block = "X";
 
     public HighQualityLayer(int length) {
-        this.length = length;
-    }
-
-    public String getRepresentation() {
-        StringBuilder result = new StringBuilder();
-
-        for(int i=0; i<length; i++) {
-            result.append(block);
-        }
-
-        return result.toString();
+        super(length);
+        super.setBlock(block);
     }
 
     public boolean canHold(Layer layer) {
@@ -27,7 +17,4 @@ public class HighQualityLayer implements Layer {
         return true;
     }
 
-    public int getLength() {
-        return length;
-    }
 }

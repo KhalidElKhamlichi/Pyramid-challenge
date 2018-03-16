@@ -1,9 +1,32 @@
-public interface Layer {
+public abstract class Layer {
 
-    String getRepresentation();
+    protected final int length;
+    private String block;
 
-    int getLength();
+    public Layer(int length) {
+        this.length = length;
+    }
 
-    boolean canHold(Layer layer);
+    public String getRepresentation() {
+        StringBuilder result = new StringBuilder();
+
+        for(int i=0; i<length; i++) {
+            result.append(block);
+        }
+
+        return result.toString();
+    }
+
+    public abstract boolean canHold(Layer layer);
+
+    protected void setBlock(String block) {
+        this.block = block;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+
 
 }
