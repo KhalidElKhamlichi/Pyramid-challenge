@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Layers {
 
-    private List<Layer> layers = new ArrayList<Layer>();
+    private final List<Layer> layers = new ArrayList<Layer>();
 
     private final String EMPTY_BLOCK = " ";
     private final String FILLER_BLOCK = "_";
